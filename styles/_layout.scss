@@ -1,0 +1,66 @@
+@use "./mixins" as *;
+@use "./variables" as *;
+
+
+.calculator {
+    width: 98vw;
+    height: 98vh;
+    border: solid black 2px;
+}
+
+.screen {
+    width: 100%;
+    height: 20%;
+    border: solid red 2px;
+}
+
+.small-buttons {
+    display: flex;
+    width: 90%;
+    margin: 1rem auto 1rem auto;
+    border-bottom: green 2px solid;
+    height: 10%;
+
+    &__buttons {
+        @include buttonRounder();
+        @include widthHeight(70px, 70px);
+        padding: 0.3rem;
+
+        & img {
+            @include widthHeight();
+            padding: 0.3rem;
+        }
+    }
+}
+
+
+.buttons {
+    height: 40%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 0.5rem;
+    padding: 1rem 1rem 0 1rem;
+    margin-top: 2rem;
+
+    
+    &__main {
+
+        @include fontFamilySizeWeightColor (2.5rem, 1000, $colorWhite);
+        @include buttonRounder();
+        background-color: $darkGrey;
+        border: none;
+
+        &--red {
+            @include fontFamilySizeWeightColor (4rem, 100, $colorRed);
+        }
+        &--green {
+            @include fontFamilySizeWeightColor (4rem, 100, $colorGreen);
+        }
+
+        &--equals {
+            background-color: $colorGreen;
+            @include fontFamilySizeWeightColor (4rem, 100, $colorBlack);
+        }
+    }
+
+}

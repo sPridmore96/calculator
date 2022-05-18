@@ -1,0 +1,74 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.calculator {
+  width: 98vw;
+  height: 98vh;
+  border: solid black 2px;
+}
+
+.screen {
+  width: 100%;
+  height: 20%;
+  border: solid red 2px;
+}
+
+.small-buttons {
+  display: flex;
+  width: 90%;
+  margin: 1rem auto 1rem auto;
+  border-bottom: green 2px solid;
+  height: 10%;
+}
+.small-buttons__buttons {
+  border-radius: 40%;
+  width: 70px;
+  height: 70px;
+  padding: 0.3rem;
+}
+.small-buttons__buttons img {
+  width: 50px;
+  height: 50px;
+  padding: 0.3rem;
+}
+
+.buttons {
+  height: 40%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 0.5rem;
+  padding: 1rem 1rem 0 1rem;
+  margin-top: 2rem;
+}
+.buttons__main {
+  font-family: "Bebas Neue", cursive;
+  font-size: 2.5rem;
+  font-weight: 1000;
+  color: #FCFCFC;
+  border-radius: 40%;
+  background-color: #171717;
+  border: none;
+}
+.buttons__main--red {
+  font-family: "Bebas Neue", cursive;
+  font-size: 4rem;
+  font-weight: 100;
+  color: #873B3D;
+}
+.buttons__main--green {
+  font-family: "Bebas Neue", cursive;
+  font-size: 4rem;
+  font-weight: 100;
+  color: #3D6635;
+}
+.buttons__main--equals {
+  background-color: #3D6635;
+  font-family: "Bebas Neue", cursive;
+  font-size: 4rem;
+  font-weight: 100;
+  color: #010101;
+}/*# sourceMappingURL=style.css.map */
