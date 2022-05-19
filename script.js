@@ -72,31 +72,31 @@ const handleCalculation = () => {
         case "+":
             result = num1 + num2;
             memoryStorage.push(`= ${result}`);
-            addToMemory()
+            addToBothMemory()
             answer.innerText = result;
             break
         case "-":
             result = num1 - num2;
             memoryStorage.push(`= ${result}`);
-            addToMemory()
+            addToBothMemory()
             answer.innerText = result;
             break;
         case "*":
             result = num1 * num2;
             memoryStorage.push(`= ${result}`);
-            addToMemory()
+            addToBothMemory()
             answer.innerText = result;
             break;
         case "/":
             result = num1 / num2
             memoryStorage.push(`= ${result}`);
-            addToMemory()
+            addToBothMemory()
             answer.innerText = result;
             break
     }
 }
 
-const addToMemoryBoth = () => {
+const addToBothMemory = () => {
     memoryStorage = memoryStorage.join(" ");
     let newMemory = new Option(`${memoryStorage}`, `${memoryStorage}`);
     memoryList.add(newMemory, undefined);
