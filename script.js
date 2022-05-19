@@ -23,6 +23,9 @@ const handleButtonClick = (Event) => {
         currentCalculation.push(currentNumber)
         currentCalculation.push(pressedButton)
         currentNumber = ""
+    }else if (pressedButton === "C") {
+        currentNumber = ""
+        currentCalculation = []
     } else {
         currentNumber += pressedButton;
     }
@@ -30,7 +33,7 @@ const handleButtonClick = (Event) => {
 }
 
 
-handleCalculation = () => {
+const handleCalculation = () => {
     currentCalculation.push(currentNumber)
     const num1 = parseFloat(currentCalculation[0]);
     const num2 = parseFloat(currentCalculation[2]);
@@ -57,7 +60,9 @@ handleCalculation = () => {
 
 }
 
+const handleClear = () => {
 
+}
 
 
 // -----------------------------EVENT LISTENERS------------------------------
@@ -67,7 +72,6 @@ buttonInputs.forEach((button) =>
 );
 
 equals.addEventListener("click", handleCalculation)
-
 
 
 
