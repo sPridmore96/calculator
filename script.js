@@ -6,8 +6,8 @@ let currentCalculation = [];
 // ----------------------------HTML ELEMENTS------------------------------
 
 const buttonInputs = document.querySelectorAll(".buttons__main");
-
-
+const answer = document.getElementById("answer")
+const equals = document.getElementById("equals")
 
 
 
@@ -25,17 +25,19 @@ const handleButtonClick = (Event) => {
         currentNumber += pressedButton
     }
     console.log(currentCalculation);
-
-
 }
 
 
-handleCalculation = (pressedButton) = {
+handleCalculation = () => {
+    currentCalculation.push(currentNumber)
+    const num1 = parseFloat(currentCalculation[0]);
+    const num2 = parseFloat(currentCalculation[2]);
+    const operator = currentCalculation[1];
 
-    if() {
-        
+    if (operator === "+") {
+        const result = num1 + num2;
+        answer.innerText = result;
     }
-
 }
 
 
@@ -46,6 +48,8 @@ handleCalculation = (pressedButton) = {
 buttonInputs.forEach((button) =>
     button.addEventListener("click", handleButtonClick)
 );
+
+equals.addEventListener("click",handleCalculation)
 
 
 
