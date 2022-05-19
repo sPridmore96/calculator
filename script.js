@@ -5,6 +5,7 @@ let currentCalculation = [];
 
 // ----------------------------HTML ELEMENTS------------------------------
 
+
 const buttonInputs = document.querySelectorAll(".buttons__main");
 const answer = document.getElementById("answer")
 const equals = document.getElementById("equals")
@@ -15,14 +16,15 @@ const equals = document.getElementById("equals")
 // -----------------------------FUNCTIONS-----------------------------------
 
 const handleButtonClick = (Event) => {
+
     pressedButton = Event.target.innerText;
 
-    if (pressedButton === "+") {
+ if (pressedButton === "+" || pressedButton === "-" || pressedButton === "/" || pressedButton === "*") {
         currentCalculation.push(currentNumber)
         currentCalculation.push(pressedButton)
         currentNumber = ""
     } else {
-        currentNumber += pressedButton
+        currentNumber += pressedButton;
     }
     console.log(currentCalculation);
 }
@@ -34,10 +36,25 @@ handleCalculation = () => {
     const num2 = parseFloat(currentCalculation[2]);
     const operator = currentCalculation[1];
 
-    if (operator === "+") {
-        const result = num1 + num2;
-        answer.innerText = result;
+    switch (operator) {
+        case "+":
+            result = num1 + num2;
+            answer.innerText = result;
+            break
+        case "-":
+            result = num1 - num2;
+            answer.innerText = result;
+            break;
+        case "*":
+            result = num1 * num2;
+            answer.innerText = result;
+            break;
+        case "/":
+            result = num1 / num2
+            answer.innerText = result;
+            break
     }
+
 }
 
 
@@ -49,7 +66,7 @@ buttonInputs.forEach((button) =>
     button.addEventListener("click", handleButtonClick)
 );
 
-equals.addEventListener("click",handleCalculation)
+equals.addEventListener("click", handleCalculation)
 
 
 
