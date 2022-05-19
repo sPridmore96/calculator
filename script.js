@@ -1,14 +1,28 @@
+
+// // ----------------------------GLOBAL VARIABLES------------------------------
+
 let pressedButton = "";
 let currentNumber = "";
 let currentCalculation = [];
+let onScreenCalculation = [];
+let memoryStorage = [];
+
+console.log(memoryStorage);
 
 
 // ----------------------------HTML ELEMENTS------------------------------
 
 
 const buttonInputs = document.querySelectorAll(".buttons__main");
-const answer = document.getElementById("answer")
-const equals = document.getElementById("equals")
+const answer = document.getElementById("answer");
+const equals = document.getElementById("equals");
+const userInput = document.getElementById("user-input");
+const backspace = document.getElementById("backspace");
+const memoryList = document.getElementById("memory")
+
+
+
+
 
 
 
@@ -18,19 +32,32 @@ const equals = document.getElementById("equals")
 const handleButtonClick = (Event) => {
 
     pressedButton = Event.target.innerText;
+    userInput.value += pressedButton;
+    memoryStorage.push(pressedButton)
 
- if (pressedButton === "+" || pressedButton === "-" || pressedButton === "/" || pressedButton === "*") {
-        currentCalculation.push(currentNumber)
-        currentCalculation.push(pressedButton)
-        currentNumber = ""
-    }else if (pressedButton === "C") {
-        currentNumber = ""
-        currentCalculation = []
-    } else {
-        currentNumber += pressedButton;
+    switch (pressedButton) {
+        case "+":
+        case "-":
+        case "/":
+        case "*":
+            currentCalculation.push(currentNumber);
+            currentCalculation.push(pressedButton);
+            currentNumber = "";
+            break;
+        case "C":
+            currentNumber = "";
+            currentCalculation = [];
+            answer.innerText = "";
+            userInput.value = "";
+            memoryStorage = [];
+            break;
+        default:
+            currentNumber += pressedButton;
+            break;
     }
-    console.log(currentCalculation);
 }
+
+
 
 
 const handleCalculation = () => {
@@ -39,31 +66,47 @@ const handleCalculation = () => {
     const num2 = parseFloat(currentCalculation[2]);
     const operator = currentCalculation[1];
 
+
+
     switch (operator) {
         case "+":
             result = num1 + num2;
+            memoryStorage.push(`= ${result}`);
+            addToMemory()
             answer.innerText = result;
             break
         case "-":
             result = num1 - num2;
+            memoryStorage.push(`= ${result}`);
+            addToMemory()
             answer.innerText = result;
             break;
         case "*":
             result = num1 * num2;
+            memoryStorage.push(`= ${result}`);
+            addToMemory()
             answer.innerText = result;
             break;
         case "/":
             result = num1 / num2
+            memoryStorage.push(`= ${result}`);
+            addToMemory()
             answer.innerText = result;
             break
     }
-
 }
 
-const handleClear = () => {
-
+const addToMemory = () => {
+    memoryStorage = memoryStorage.join(" ");
+    console.log(typeof memoryStorage);
+    let newMemory = new Option(`${memoryStorage}`, `${memoryStorage}`)
+    memoryList.add(newMemory, undefined)
+    memoryStorage = []
 }
 
+const returnToUser = () => {
+    
+}
 
 // -----------------------------EVENT LISTENERS------------------------------
 
@@ -72,7 +115,6 @@ buttonInputs.forEach((button) =>
 );
 
 equals.addEventListener("click", handleCalculation)
-
 
 
 
