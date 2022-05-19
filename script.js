@@ -7,7 +7,6 @@ let currentCalculation = [];
 let onScreenCalculation = [];
 let memoryStorage = [];
 
-console.log(memoryStorage);
 
 
 // ----------------------------HTML ELEMENTS------------------------------
@@ -19,9 +18,10 @@ const equals = document.getElementById("equals");
 const userInput = document.getElementById("user-input");
 const backspace = document.getElementById("backspace");
 const memoryList = document.getElementById("memory")
+const selectedMemory = document.querySelectorAll(".new-memory-class")
 
 
-
+console.log(selectedMemory);
 
 
 
@@ -96,17 +96,18 @@ const handleCalculation = () => {
     }
 }
 
-const addToMemory = () => {
+const addToMemoryBoth = () => {
     memoryStorage = memoryStorage.join(" ");
-    console.log(typeof memoryStorage);
-    let newMemory = new Option(`${memoryStorage}`, `${memoryStorage}`)
-    memoryList.add(newMemory, undefined)
-    memoryStorage = []
+    let newMemory = new Option(`${memoryStorage}`, `${memoryStorage}`);
+    memoryList.add(newMemory, undefined);
+    newMemory.classList.add("new-memory-class");
+    memoryStorage = [];
 }
 
-const returnToUser = () => {
-    
-}
+// const returnToUser = () => {
+//     newMemory.split(" ")
+//    console.log(newMemory.innerText.length -2);
+// }
 
 // -----------------------------EVENT LISTENERS------------------------------
 
@@ -114,8 +115,9 @@ buttonInputs.forEach((button) =>
     button.addEventListener("click", handleButtonClick)
 );
 
-equals.addEventListener("click", handleCalculation)
+equals.addEventListener("click", handleCalculation);
 
+// selectedMemory.addEventListener("select", returnToUser);
 
 
 // --------------------------------LOGIC---------------------------------------

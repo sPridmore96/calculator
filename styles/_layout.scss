@@ -11,9 +11,10 @@
 }
 
 .screen {
-    width: 100%;
+    width: 90%;
+    margin: 1rem auto auto auto;
     height: 20%;
-    border: solid red 2px;
+    border-bottom: dashed $colorGreen 2px;
     display: grid;
     grid-auto-columns: 1fr;
     grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -21,8 +22,8 @@
     gap: 0px 0px;
     grid-template-areas:
         "__user-input __user-input __user-input __user-input"
-        "__memory __answer __answer __answer"
-        "__memory __answer __answer __answer";
+        "__memory __memory __answer __answer"
+        "__memory __memory __answer __answer";
 
 
     &__user-input {
@@ -30,18 +31,22 @@
         width: 100%;
 
         & input {
+            padding-right: 2rem;
+            text-align: end;
             width: 100%;
             height: 100%;
             @include fontFamilySizeWeightColor(2rem, 600, $colorWhite);
             background-color: $colorBlack;
         }
-
-        ;
     }
 
     &__memory {
         grid-area: __memory;
-        
+        width: 100%;
+    }
+
+    &__calculations-mem {
+        width: 1rem;
     }
 
     &__answer {
