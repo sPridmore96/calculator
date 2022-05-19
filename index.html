@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles/style.css">
+    <script defer src="./script.js"></script>
     <title>Calculator</title>
 </head>
 
@@ -16,43 +17,45 @@
         <!-- ------------------------------------------------------------------------------SCREEN------------------------------------------------------------------------------------- -->
 
         <div class="screen">
-            <div class="screen__user-input"><input type="number"></div>
-            <div class="screen__memory"><input type="number" id="output"></div>
-            <div class="screen__anwser"><span>000</span></div>
+            <div class="screen__user-input"><input id="user-input" type="number"></div>
+            <div class="screen__answer"><p id="answer">working?</p></div>
+            <div class="screen__memory"> <select name="recent-sums" id="memory"></select> </div>
         </div>
 
 
         <!-- ----------------------------------------------------------------------------TOP BUTTONS---------------------------------------------------------------------------------- -->
 
         <div class="small-buttons">
-            <button class="small-buttons__buttons"><img src="./icons/ruler-icon.png" alt=""></button>
-            <button class="small-buttons__buttons"><img src="./icons/clockIcon.png" alt=""></button>
-            <button class="small-buttons__buttons">BackSpace</button>
+            <div>
+                <button class="small-buttons__buttons"><img src="./icons/ruler-icon.png" alt=""></button>
+                <button class="small-buttons__buttons"><img src="./icons/clockIcon.png" alt=""></button>
+            </div>
+            <button class="small-buttons__buttons"><img src="./icons/backspace.png" alt=""></button>
 
         </div>
 
         <!-- ---------------------------------------------------------------------------MAIN BUTTONS----------------------------------------------------------------------------------- -->
         <div class="buttons">
-            <button class="buttons__main buttons__main--red">C</button>
-            <button class="buttons__main buttons__main--green">()</button>
-            <button class="buttons__main buttons__main--green">%</button>
-            <button class="buttons__main buttons__main--green">/</button>
-            <button class="buttons__main">7</button>
-            <button class="buttons__main">8</button>
-            <button class="buttons__main">9</button>
-            <button class="buttons__main buttons__main--green">*</button>
-            <button class="buttons__main">4</button>
-            <button class="buttons__main">5</button>
-            <button class="buttons__main">6</button>
-            <button class="buttons__main buttons__main--green">-</button>
-            <button class="buttons__main">1</button>
-            <button class="buttons__main">2</button>
-            <button class="buttons__main">3</button>
-            <button class="buttons__main buttons__main--green">+</button>
-            <button class="buttons__main">+/-</button>
-            <button class="buttons__main">0</button>
-            <button class="buttons__main">.</button>
-            <button class="buttons__main buttons__main--equals">=</button>
+            <button id="backspace" class="buttons__main buttons__main--red">C</button>
+            <button id="brackets" class="buttons__main buttons__main--green">()</button>
+            <button id="percent" class="buttons__main buttons__main--green">%</button>
+            <button id="divide" class="buttons__main buttons__main--green">/</button>
+            <button id="seven" class="buttons__main">7</button>
+            <button id="eight" class="buttons__main">8</button>
+            <button id="nine" class="buttons__main">9</button>
+            <button id="multiply" class="buttons__main buttons__main--green">*</button>
+            <button id="four" class="buttons__main">4</button>
+            <button id="five" class="buttons__main">5</button>
+            <button id="six" class="buttons__main">6</button>
+            <button id="subtract" class="buttons__main buttons__main--green">-</button>
+            <button id="one" class="buttons__main">1</button>
+            <button id="two" class="buttons__main">2</button>
+            <button id="three" class="buttons__main">3</button>
+            <button id="adition" class="buttons__main buttons__main--green">+</button>
+            <button id="change-positity" class="buttons__main">+/-</button>
+            <button id="zero" class="buttons__main">0</button>
+            <button id="decimal" class="buttons__main">.</button>
+            <button id="equals" class="buttons__main buttons__main--equals">=</button>
         </div>
         <!-- ---------------------------------------------------------------------------MAIN BUTTONS----------------------------------------------------------------------------------- -->
     </div>

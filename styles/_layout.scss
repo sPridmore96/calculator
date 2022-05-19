@@ -6,22 +6,68 @@
     width: 98vw;
     height: 98vh;
     border: solid black 2px;
+    background-color: $colorBlack;
+
 }
 
 .screen {
     width: 100%;
     height: 20%;
     border: solid red 2px;
+    display: grid;
+    grid-auto-columns: 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 2fr 1fr 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+        "__user-input __user-input __user-input __user-input"
+        "__memory __answer __answer __answer"
+        "__memory __answer __answer __answer";
+
+
+    &__user-input {
+        grid-area: __user-input;
+        width: 100%;
+
+        & input {
+            width: 100%;
+            height: 100%;
+            @include fontFamilySizeWeightColor(2rem, 600, $colorWhite);
+            background-color: $colorBlack;
+        }
+
+        ;
+    }
+
+    &__memory {
+        grid-area: __memory;
+        
+    }
+
+    &__answer {
+        grid-area: __answer;
+        padding: 1rem;
+        margin: auto;
+
+        & p {
+            @include fontFamilySizeWeightColor(3rem, 600, $colorWhite)
+        }
+    }
 }
+
 
 .small-buttons {
     display: flex;
+    justify-content: space-between;
     width: 90%;
     margin: 1rem auto 1rem auto;
-    border-bottom: green 2px solid;
+    border-bottom: green 3px solid;
     height: 10%;
+    background-color: $colorBlack;
 
     &__buttons {
+        border: none;
+        background-color: $colorBlack;
         @include buttonRounder();
         @include widthHeight(70px, 70px);
         padding: 0.3rem;
@@ -29,12 +75,14 @@
         & img {
             @include widthHeight();
             padding: 0.3rem;
+            @include buttonRounder();
         }
     }
 }
 
 
 .buttons {
+    flex-wrap: wrap;
     height: 40%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -42,7 +90,7 @@
     padding: 1rem 1rem 0 1rem;
     margin-top: 2rem;
 
-    
+
     &__main {
 
         @include fontFamilySizeWeightColor (2.5rem, 1000, $colorWhite);
@@ -53,6 +101,7 @@
         &--red {
             @include fontFamilySizeWeightColor (4rem, 100, $colorRed);
         }
+
         &--green {
             @include fontFamilySizeWeightColor (4rem, 100, $colorGreen);
         }
