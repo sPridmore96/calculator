@@ -6,8 +6,10 @@ let currentNumber = "";
 let currentCalculation = [];
 let onScreenCalculation = [];
 let memoryStorage = [];
+let memoryStorageBack = {}
 
-
+console.log(memoryStorageBack);
+console.log(memoryStorage);
 
 // ----------------------------HTML ELEMENTS------------------------------
 
@@ -21,7 +23,6 @@ const memoryList = document.getElementById("memory")
 const selectedMemory = document.querySelectorAll(".new-memory-class")
 
 
-console.log(selectedMemory);
 
 
 
@@ -72,37 +73,51 @@ const handleCalculation = () => {
         case "+":
             result = num1 + num2;
             memoryStorage.push(`= ${result}`);
-            addToBothMemory()
+            addToFrontMemory();
+            // addToBackMemory();
             answer.innerText = result;
             break
         case "-":
             result = num1 - num2;
             memoryStorage.push(`= ${result}`);
-            addToBothMemory()
+            addToFrontMemory();
+            // addToBackMemory();
             answer.innerText = result;
             break;
         case "*":
             result = num1 * num2;
             memoryStorage.push(`= ${result}`);
-            addToBothMemory()
+            addToFrontMemory();
+            // addToBackMemory();
             answer.innerText = result;
             break;
         case "/":
             result = num1 / num2
             memoryStorage.push(`= ${result}`);
-            addToBothMemory()
+            addToFrontMemory();
+            // addToBackMemory();
             answer.innerText = result;
             break
+        case "%":
+            result 
     }
 }
 
-const addToBothMemory = () => {
+const addToFrontMemory = () => {
+    memoryStorageBack[memoryStorage] = memoryStorage;
     memoryStorage = memoryStorage.join(" ");
     let newMemory = new Option(`${memoryStorage}`, `${memoryStorage}`);
     memoryList.add(newMemory, undefined);
     newMemory.classList.add("new-memory-class");
     memoryStorage = [];
 }
+
+const addToBackMemory = () => {
+    memoryStorage = memoryStorage
+    memoryStorageBack.memoryStorage = memoryStorage;
+}
+
+
 
 // const returnToUser = () => {
 //     newMemory.split(" ")
