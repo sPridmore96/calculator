@@ -8,9 +8,6 @@ let onScreenCalculation = [];
 let memoryStorage = [];
 let memoryStorageBack = {}
 
-console.log(memoryStorageBack);
-console.log(memoryStorage);
-
 // ----------------------------HTML ELEMENTS------------------------------
 
 
@@ -19,28 +16,33 @@ const answer = document.getElementById("answer");
 const equals = document.getElementById("equals");
 const userInput = document.getElementById("user-input");
 const backspace = document.getElementById("backspace");
-const memoryList = document.getElementById("memory")
-const selectedMemory = document.querySelectorAll(".new-memory-class")
-
-
-
-
-
+const memoryList = document.getElementById("memory");
+const selectedMemory = document.querySelectorAll(".new-memory-class");
+const percent = document.getElementById("percent");
 
 
 // -----------------------------FUNCTIONS-----------------------------------
 
+const handleBackSpace = () => {
+   userInput.value = userInput.value.slice(0, userInput.value.length -1);
+    console.log(userInput.value);
+}
+
+
 const handleButtonClick = (Event) => {
 
+  
     pressedButton = Event.target.innerText;
     userInput.value += pressedButton;
     memoryStorage.push(pressedButton)
 
     switch (pressedButton) {
+
         case "+":
         case "-":
         case "/":
         case "*":
+        case "%":
             currentCalculation.push(currentNumber);
             currentCalculation.push(pressedButton);
             currentNumber = "";
@@ -67,9 +69,8 @@ const handleCalculation = () => {
     const num2 = parseFloat(currentCalculation[2]);
     const operator = currentCalculation[1];
 
-
-
     switch (operator) {
+
         case "+":
             result = num1 + num2;
             memoryStorage.push(`= ${result}`);
@@ -99,8 +100,14 @@ const handleCalculation = () => {
             answer.innerText = result;
             break
         case "%":
-            result 
-    }
+            result = num1 / 100;
+            memoryStorage.push(`is ${result} in decimal form`)
+            addToFrontMemory()
+            console.log()
+            answer.innerText = result
+            break
+        }
+    
 }
 
 const addToFrontMemory = () => {
@@ -118,7 +125,6 @@ const addToBackMemory = () => {
 }
 
 
-
 // const returnToUser = () => {
 //     newMemory.split(" ")
 //    console.log(newMemory.innerText.length -2);
@@ -134,5 +140,8 @@ equals.addEventListener("click", handleCalculation);
 
 // selectedMemory.addEventListener("select", returnToUser);
 
+percent.addEventListener("click", handleCalculation)
+
+backspace.addEventListener("click", handleBackSpace)
 
 // --------------------------------LOGIC---------------------------------------
