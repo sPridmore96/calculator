@@ -8,6 +8,8 @@ let onScreenCalculation = [];
 let memoryStorage = [];
 let memoryStorageBack = {}
 
+
+
 // ----------------------------HTML ELEMENTS------------------------------
 
 
@@ -23,18 +25,45 @@ const percent = document.getElementById("percent");
 
 // -----------------------------FUNCTIONS-----------------------------------
 
-const handleBackSpace = () => {
-   userInput.value = userInput.value.slice(0, userInput.value.length -1);
-    console.log(userInput.value);
+
+const memReset = () => {
+    pressedButton = "";
+    currentNumber = "";
+    currentCalculation = [];
+    onScreenCalculation = [];
+    memoryStorage = [];
+    memoryStorageBack = {};
+    userInput.value = "";
+        
 }
 
 
-const handleButtonClick = (Event) => {
 
-  
+const handleBackSpace = () => {
+    if (currentCalculation.length > 1) {
+        userInput.value = userInput.value.slice(0,- 2);
+        memoryStorage = Array.from(memoryStorage)
+        memoryStorage.pop();
+        currentCalculation = Array.from(currentCalculation)
+        currentCalculation.pop();
+        currentNumber = currentCalculation[1];
+        pressedButton = currentCalculation[1];
+
+    } else {
+        memReset();
+    }
+
+}
+
+
+const handleMainButtonClick = (Event) => {
+
     pressedButton = Event.target.innerText;
     userInput.value += pressedButton;
     memoryStorage.push(pressedButton)
+
+    
+
 
     switch (pressedButton) {
 
@@ -43,28 +72,29 @@ const handleButtonClick = (Event) => {
         case "/":
         case "*":
         case "%":
-            currentCalculation.push(currentNumber);
-            currentCalculation.push(pressedButton);
+            currentCalculation.push(currentNumber, pressedButton);
             currentNumber = "";
             break;
         case "C":
-            currentNumber = "";
-            currentCalculation = [];
+            memReset()
             answer.innerText = "";
-            userInput.value = "";
-            memoryStorage = [];
             break;
+        case "" :
         default:
             currentNumber += pressedButton;
             break;
     }
+    console.log(currentNumber);
+    console.log(currentCalculation);
 }
 
-
+354460115302984/01
 
 
 const handleCalculation = () => {
     currentCalculation.push(currentNumber)
+    console.log(currentNumber);
+    console.log(currentCalculation);
     const num1 = parseFloat(currentCalculation[0]);
     const num2 = parseFloat(currentCalculation[2]);
     const operator = currentCalculation[1];
@@ -82,6 +112,7 @@ const handleCalculation = () => {
             result = num1 - num2;
             memoryStorage.push(`= ${result}`);
             addToFrontMemory();
+            currentCalculation = []
             // addToBackMemory();
             answer.innerText = result;
             break;
@@ -89,6 +120,7 @@ const handleCalculation = () => {
             result = num1 * num2;
             memoryStorage.push(`= ${result}`);
             addToFrontMemory();
+            currentCalculation = []
             // addToBackMemory();
             answer.innerText = result;
             break;
@@ -96,6 +128,7 @@ const handleCalculation = () => {
             result = num1 / num2
             memoryStorage.push(`= ${result}`);
             addToFrontMemory();
+            currentCalculation = []
             // addToBackMemory();
             answer.innerText = result;
             break
@@ -103,15 +136,14 @@ const handleCalculation = () => {
             result = num1 / 100;
             memoryStorage.push(`is ${result} in decimal form`)
             addToFrontMemory()
-            console.log()
+            currentCalculation = []
             answer.innerText = result
             break
-        }
-    
+    }
 }
 
+
 const addToFrontMemory = () => {
-    memoryStorageBack[memoryStorage] = memoryStorage;
     memoryStorage = memoryStorage.join(" ");
     let newMemory = new Option(`${memoryStorage}`, `${memoryStorage}`);
     memoryList.add(newMemory, undefined);
@@ -119,21 +151,17 @@ const addToFrontMemory = () => {
     memoryStorage = [];
 }
 
-const addToBackMemory = () => {
-    memoryStorage = memoryStorage
-    memoryStorageBack.memoryStorage = memoryStorage;
+const returnToUser = () => {
+    memReset()
+
 }
 
 
-// const returnToUser = () => {
-//     newMemory.split(" ")
-//    console.log(newMemory.innerText.length -2);
-// }
 
 // -----------------------------EVENT LISTENERS------------------------------
 
 buttonInputs.forEach((button) =>
-    button.addEventListener("click", handleButtonClick)
+    button.addEventListener("click", handleMainButtonClick)
 );
 
 equals.addEventListener("click", handleCalculation);
