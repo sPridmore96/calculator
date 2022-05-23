@@ -1,7 +1,5 @@
-
 // // ----------------------------GLOBAL VARIABLES------------------------------
 
-let pressedButton = "";
 let currentNumber = "";
 let currentCalculation = [];
 let onScreenCalculation = [];
@@ -34,37 +32,23 @@ const memReset = () => {
     memoryStorage = [];
     memoryStorageBack = {};
     userInput.value = "";
-        
+
 }
 
 
 
 const handleBackSpace = () => {
-    if (currentCalculation.length > 1) {
-        userInput.value = userInput.value.slice(0,- 2);
-        memoryStorage = Array.from(memoryStorage)
-        memoryStorage.pop();
-        currentCalculation = Array.from(currentCalculation)
-        currentCalculation.pop();
-        currentNumber = currentCalculation[1];
-        pressedButton = currentCalculation[1];
-
-    } else {
-        memReset();
-    }
-
+    const changedCalculation = userInput.value.split(' ')
+    changedCalculation.pop()
+    userInput.value = changedCalculation.join(" ")
 }
 
 
-const handleMainButtonClick = (Event) => {
 
-    pressedButton = Event.target.innerText;
-    userInput.value += pressedButton;
-    memoryStorage.push(pressedButton)
+const handleMainButtonClick = (event) => {
+    pressedButton = event.target.innerText
 
-    
-
-
+    console.log(userInput.value);
     switch (pressedButton) {
 
         case "+":
@@ -72,29 +56,26 @@ const handleMainButtonClick = (Event) => {
         case "/":
         case "*":
         case "%":
-            currentCalculation.push(currentNumber, pressedButton);
-            currentNumber = "";
+            userInput.value += ` ${pressedButton} `
             break;
         case "C":
             memReset()
             answer.innerText = "";
             break;
-        case "" :
         default:
-            currentNumber += pressedButton;
+            userInput.value += pressedButton;
             break;
     }
-    console.log(currentNumber);
-    console.log(currentCalculation);
 }
 
-354460115302984/01
+// operator = "+" || "-" || "*" || "/";
+
 
 
 const handleCalculation = () => {
-    currentCalculation.push(currentNumber)
-    console.log(currentNumber);
-    console.log(currentCalculation);
+    currentCalculation = userInput.value.split(' ')
+    memoryStorage = currentCalculation
+
     const num1 = parseFloat(currentCalculation[0]);
     const num2 = parseFloat(currentCalculation[2]);
     const operator = currentCalculation[1];
@@ -142,16 +123,16 @@ const handleCalculation = () => {
     }
 }
 
-
 const addToFrontMemory = () => {
     memoryStorage = memoryStorage.join(" ");
     let newMemory = new Option(`${memoryStorage}`, `${memoryStorage}`);
     memoryList.add(newMemory, undefined);
-    newMemory.classList.add("new-memory-class");
+    newMemory.classList.add("old-memory");
     memoryStorage = [];
 }
 
 const returnToUser = () => {
+    memoryStorage.split (" ")
     memReset()
 
 }
