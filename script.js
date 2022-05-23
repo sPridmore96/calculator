@@ -5,8 +5,7 @@ let currentCalculation = [];
 let onScreenCalculation = [];
 let memoryStorage = [];
 let memoryStorageBack = {}
-
-
+const operator = "+" || "-" || "*" || "/";
 
 // ----------------------------HTML ELEMENTS------------------------------
 
@@ -21,6 +20,7 @@ const selectedMemory = document.querySelectorAll(".new-memory-class");
 const percent = document.getElementById("percent");
 
 
+
 // -----------------------------FUNCTIONS-----------------------------------
 
 
@@ -32,23 +32,25 @@ const memReset = () => {
     memoryStorage = [];
     memoryStorageBack = {};
     userInput.value = "";
-
+ 
 }
 
-
+// console.log(changedCalculation[changedCalculation.length-1]);
 
 const handleBackSpace = () => {
-    const changedCalculation = userInput.value.split(' ')
-    changedCalculation.pop()
-    userInput.value = changedCalculation.join(" ")
+
+    
+    answer.innerText = "";
+
+    if (userInput.value.length === 5) {
+    userInput.value = userInput.value.slice(0,4)
+        } else if (userInput.value.length === 4) {
+            userInput.value = userInput.value.slice(0,1)
+        }
 }
-
-
 
 const handleMainButtonClick = (event) => {
     pressedButton = event.target.innerText
-
-    console.log(userInput.value);
     switch (pressedButton) {
 
         case "+":
@@ -68,11 +70,12 @@ const handleMainButtonClick = (event) => {
     }
 }
 
-// operator = "+" || "-" || "*" || "/";
+
 
 
 
 const handleCalculation = () => {
+    console.log(userInput.value.length);
     currentCalculation = userInput.value.split(' ')
     memoryStorage = currentCalculation
 
@@ -132,9 +135,12 @@ const addToFrontMemory = () => {
 }
 
 const returnToUser = () => {
-    memoryStorage.split (" ")
-    memReset()
-
+    let selectedOption = memoryList.options[memoryList.selectedIndex].value;
+    selectedOptionArr = selectedOption.split(" ");
+    answer.innerText = selectedOptionArr.pop()
+    selectedOptionArr.pop()
+    userInput.value = selectedOptionArr.join(" ")
+    console.log(selectedOptionArr);
 }
 
 
@@ -144,6 +150,8 @@ const returnToUser = () => {
 buttonInputs.forEach((button) =>
     button.addEventListener("click", handleMainButtonClick)
 );
+
+memoryList.addEventListener("change", returnToUser)
 
 equals.addEventListener("click", handleCalculation);
 
