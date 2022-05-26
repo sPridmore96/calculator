@@ -42,7 +42,7 @@ const handleMainButtonClick = (event) => {
         case "-":
         case "/":
         case "*":
-            currentCalculation.push(currentNumber);
+            currentCalculation.push(parseInt(currentNumber, 10));
             currentCalculation.push(pressedButton);
             currentNumber = 0;
             break;
@@ -50,15 +50,15 @@ const handleMainButtonClick = (event) => {
             userMemReset()
             break;
         case "=":
-            currentCalculation.push(currentNumber);
-
+            currentCalculation.push(parseInt(currentNumber, 10));
             handleCalculation()
             break
         default:
-            currentNumber += pressedButton;
-            parseFloat(currentNumber)
-
-            break;
+            if (currentNumber === 0) {
+                currentNumber = pressedButton;
+            } else {
+                currentNumber += pressedButton;
+            }
     }
 }
 
@@ -75,49 +75,50 @@ const handleCalculation = () => {
         addToFrontMemory()
         return answer
     }
+    console.log(currentCalculation);
 
     for (let i = 0; i < currentCalculation.length; i++) {
-        if (currentCalculation[i] === "*") {
-            calculation = currentCalculation[i - 1] * currentCalculation[i + 1]
+        if (currentCalculation[i] === "*" || currentCalculation[i] === "/") {
+            let item = currentCalculation[i]
+            if (item === "*") {
+                for (let i = 0; i < currentCalculation.length; i++) {
+                    if (currentCalculation[i] === "*") {
+                        calculation = currentCalculation[i - 1] * currentCalculation[i + 1]
 
-            currentCalculation.splice([i - 1], 3);
-            currentCalculation.unshift(calculation)
-            handleCalculation()
+                        currentCalculation.splice([i - 1], 3, calculation);
+        
+                        handleCalculation()
+                    }
+                }
+            } else if (item === "/") {
+                for (let i = 0; i < currentCalculation.length; i++) {
+                    if (currentCalculation[i] === "/") {
+                        calculation = currentCalculation[i - 1] / currentCalculation[i + 1]
+                        currentCalculation.splice([i - 1], 3, calculation);
+        
+                        handleCalculation()
+                    }
+                }
+            }
         }
     }
-
-    for (let i = 0; i < currentCalculation.length; i++) {
-        if (currentCalculation[i] === "/") {
-            calculation = currentCalculation[i - 1] / currentCalculation[i + 1]
-
-            currentCalculation.splice([i - 1], 3);
-            currentCalculation.unshift(calculation)
-            handleCalculation()
-        }
-    }
-
-
 
     for (let i = 0; i < currentCalculation.length; i++) {
 
         if (currentCalculation[i] === "+") {
             calculation = currentCalculation[i - 1] + currentCalculation[i + 1]
-
-            currentCalculation.splice([i - 1], 3);
-            currentCalculation.unshift(calculation)
+            currentCalculation.splice([i - 1], 3, calculation);
             handleCalculation()
 
 
-        } else if (currentCalculation[i] === "-") {
+        }
+        if (currentCalculation[i] === "-") {
             calculation = currentCalculation[i - 1] - currentCalculation[i + 1]
-            currentCalculation.splice([i - 1], 3);
-            currentCalculation.unshift(calculation)
+            currentCalculation.splice([i - 1], 3, calculation);
             handleCalculation()
         }
     }
 }
-
-
 
 
 
