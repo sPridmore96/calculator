@@ -1,17 +1,17 @@
 // // ----------------------------GLOBAL VARIABLES------------------------------
 
-let currentNumber = "";
+let currentNumber = 0;
 let currentCalculation = [];
 let onScreenCalculation = [];
 let memoryStorage = [];
 let memoryStorageBack = {}
-const operator = "+" || "-" || "*" || "/";
+
 
 // ----------------------------HTML ELEMENTS------------------------------
 
 
 const buttonInputs = document.querySelectorAll(".buttons__main");
-const answer = document.getElementById("answer");
+let answer = document.getElementById("answer");
 const equals = document.getElementById("equals");
 const userInput = document.getElementById("user-input");
 const backspace = document.getElementById("backspace");
@@ -24,110 +24,104 @@ const percent = document.getElementById("percent");
 // -----------------------------FUNCTIONS-----------------------------------
 
 
-const memReset = () => {
+const userMemReset = () => {
     pressedButton = "";
-    currentNumber = "";
+    currentNumber = 0;
     currentCalculation = [];
     onScreenCalculation = [];
     memoryStorage = [];
-    memoryStorageBack = {};
     userInput.value = "";
- 
-}
-
-// console.log(changedCalculation[changedCalculation.length-1]);
-
-const handleBackSpace = () => {
-
-    
-    answer.innerText = "";
-
-    if (userInput.value.length === 5) {
-    userInput.value = userInput.value.slice(0,4)
-        } else if (userInput.value.length === 4) {
-            userInput.value = userInput.value.slice(0,1)
-        }
+    answer.innerText = ""
 }
 
 const handleMainButtonClick = (event) => {
     pressedButton = event.target.innerText
+    userInput.value += pressedButton
     switch (pressedButton) {
-
         case "+":
         case "-":
         case "/":
         case "*":
-        case "%":
-            userInput.value += ` ${pressedButton} `
+            currentCalculation.push(currentNumber);
+            currentCalculation.push(pressedButton);
+            currentNumber = 0;
             break;
         case "C":
-            memReset()
-            answer.innerText = "";
+            userMemReset()
             break;
+        case "=":
+            currentCalculation.push(currentNumber);
+
+            handleCalculation()
+            break
         default:
-            userInput.value += pressedButton;
+            currentNumber += pressedButton;
+            parseFloat(currentNumber)
+
             break;
     }
 }
-
 
 
 
 
 const handleCalculation = () => {
-    console.log(userInput.value.length);
-    currentCalculation = userInput.value.split(' ')
-    memoryStorage = currentCalculation
 
-    const num1 = parseFloat(currentCalculation[0]);
-    const num2 = parseFloat(currentCalculation[2]);
-    const operator = currentCalculation[1];
+    let calculation = []
 
-    switch (operator) {
+    if (currentCalculation.length === 1) {
+        answer.innerText = currentCalculation;
+        memoryStorage = `${userInput.value} ${answer.innerText}`
+        addToFrontMemory()
+        return answer
+    }
 
-        case "+":
-            result = num1 + num2;
-            memoryStorage.push(`= ${result}`);
-            addToFrontMemory();
-            // addToBackMemory();
-            answer.innerText = result;
-            break
-        case "-":
-            result = num1 - num2;
-            memoryStorage.push(`= ${result}`);
-            addToFrontMemory();
-            currentCalculation = []
-            // addToBackMemory();
-            answer.innerText = result;
-            break;
-        case "*":
-            result = num1 * num2;
-            memoryStorage.push(`= ${result}`);
-            addToFrontMemory();
-            currentCalculation = []
-            // addToBackMemory();
-            answer.innerText = result;
-            break;
-        case "/":
-            result = num1 / num2
-            memoryStorage.push(`= ${result}`);
-            addToFrontMemory();
-            currentCalculation = []
-            // addToBackMemory();
-            answer.innerText = result;
-            break
-        case "%":
-            result = num1 / 100;
-            memoryStorage.push(`is ${result} in decimal form`)
-            addToFrontMemory()
-            currentCalculation = []
-            answer.innerText = result
-            break
+    for (let i = 0; i < currentCalculation.length; i++) {
+        if (currentCalculation[i] === "*") {
+            calculation = currentCalculation[i - 1] * currentCalculation[i + 1]
+
+            currentCalculation.splice([i - 1], 3);
+            currentCalculation.unshift(calculation)
+            handleCalculation()
+        }
+    }
+
+    for (let i = 0; i < currentCalculation.length; i++) {
+        if (currentCalculation[i] === "/") {
+            calculation = currentCalculation[i - 1] / currentCalculation[i + 1]
+
+            currentCalculation.splice([i - 1], 3);
+            currentCalculation.unshift(calculation)
+            handleCalculation()
+        }
+    }
+
+
+
+    for (let i = 0; i < currentCalculation.length; i++) {
+
+        if (currentCalculation[i] === "+") {
+            calculation = currentCalculation[i - 1] + currentCalculation[i + 1]
+
+            currentCalculation.splice([i - 1], 3);
+            currentCalculation.unshift(calculation)
+            handleCalculation()
+
+
+        } else if (currentCalculation[i] === "-") {
+            calculation = currentCalculation[i - 1] - currentCalculation[i + 1]
+            currentCalculation.splice([i - 1], 3);
+            currentCalculation.unshift(calculation)
+            handleCalculation()
+        }
     }
 }
 
+
+
+
+
 const addToFrontMemory = () => {
-    memoryStorage = memoryStorage.join(" ");
     let newMemory = new Option(`${memoryStorage}`, `${memoryStorage}`);
     memoryList.add(newMemory, undefined);
     newMemory.classList.add("old-memory");
@@ -137,15 +131,13 @@ const addToFrontMemory = () => {
 const returnToUser = () => {
     let selectedOption = memoryList.options[memoryList.selectedIndex].value;
     selectedOptionArr = selectedOption.split(" ");
-    answer.innerText = selectedOptionArr.pop()
-    selectedOptionArr.pop()
-    userInput.value = selectedOptionArr.join(" ")
-    console.log(selectedOptionArr);
+    answer.innerText = selectedOptionArr.pop();
+    userInput.value = selectedOptionArr.join(" ");
 }
 
 
 
-// -----------------------------EVENT LISTENERS------------------------------
+// // -----------------------------EVENT LISTENERS------------------------------
 
 buttonInputs.forEach((button) =>
     button.addEventListener("click", handleMainButtonClick)
@@ -153,12 +145,12 @@ buttonInputs.forEach((button) =>
 
 memoryList.addEventListener("change", returnToUser)
 
-equals.addEventListener("click", handleCalculation);
 
 // selectedMemory.addEventListener("select", returnToUser);
 
-percent.addEventListener("click", handleCalculation)
+// percent.addEventListener("click", handleCalculation)
 
-backspace.addEventListener("click", handleBackSpace)
+// backspace.addEventListener("click", handleBackSpace)
 
 // --------------------------------LOGIC---------------------------------------
+

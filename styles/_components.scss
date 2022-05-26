@@ -1,0 +1,23 @@
+.small-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin: 1rem auto 1rem auto;
+    border-bottom: green 3px solid;
+    height: 10%;
+    background-color: $colorBlack;
+
+    &__buttons {
+        border: none;
+        background-color: $colorBlack;
+        @include buttonRounder();
+        @include widthHeight(70px, 70px);
+        padding: 0.3rem;
+
+        & img {
+            @include widthHeight();
+            padding: 0.3rem;
+            @include buttonRounder();
+        }
+    }
+}
