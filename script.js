@@ -42,15 +42,21 @@ const handleMainButtonClick = (event) => {
         case "-":
         case "/":
         case "*":
-            currentCalculation.push(parseInt(currentNumber, 10));
-            currentCalculation.push(pressedButton);
-            currentNumber = 0;
-            break;
+            if (currentNumber === 0) {
+                currentCalculation.push(pressedButton);
+            } else {
+                currentCalculation.push(parseInt(currentNumber, 10));
+                currentCalculation.push(pressedButton);
+                console.log(currentCalculation);
+                currentNumber = 0;
+                break;
+            }
         case "C":
             userMemReset()
             break;
         case "=":
             currentCalculation.push(parseInt(currentNumber, 10));
+
             handleCalculation()
             break
         default:
@@ -58,6 +64,7 @@ const handleMainButtonClick = (event) => {
                 currentNumber = pressedButton;
             } else {
                 currentNumber += pressedButton;
+
             }
     }
 }
@@ -68,14 +75,14 @@ const handleMainButtonClick = (event) => {
 const handleCalculation = () => {
 
     let calculation = []
-
+console.log(currentCalculation);
     if (currentCalculation.length === 1) {
         answer.innerText = currentCalculation;
         memoryStorage = `${userInput.value} ${answer.innerText}`
         addToFrontMemory()
         return answer
     }
-    console.log(currentCalculation);
+
 
     for (let i = 0; i < currentCalculation.length; i++) {
         if (currentCalculation[i] === "*" || currentCalculation[i] === "/") {
@@ -86,7 +93,7 @@ const handleCalculation = () => {
                         calculation = currentCalculation[i - 1] * currentCalculation[i + 1]
 
                         currentCalculation.splice([i - 1], 3, calculation);
-        
+
                         handleCalculation()
                     }
                 }
@@ -95,7 +102,7 @@ const handleCalculation = () => {
                     if (currentCalculation[i] === "/") {
                         calculation = currentCalculation[i - 1] / currentCalculation[i + 1]
                         currentCalculation.splice([i - 1], 3, calculation);
-        
+
                         handleCalculation()
                     }
                 }
@@ -121,7 +128,6 @@ const handleCalculation = () => {
 }
 
 
-
 const addToFrontMemory = () => {
     let newMemory = new Option(`${memoryStorage}`, `${memoryStorage}`);
     memoryList.add(newMemory, undefined);
@@ -134,6 +140,29 @@ const returnToUser = () => {
     selectedOptionArr = selectedOption.split(" ");
     answer.innerText = selectedOptionArr.pop();
     userInput.value = selectedOptionArr.join(" ");
+}
+
+const handleBackSpace = () => {
+    
+    switch (currentCalculation[currentCalculation.length -1]) {
+        case "+":
+        case "-":
+        case "/":
+        case "*":
+            console.log("oper");
+            const newSt = userInput.value.slice(0, userInput.value.length -1);
+            userInput.value = newSt;
+            const newNum = currentNumber.slice(0, currentNumber.length -1)
+            currentNumber = newNum
+            break
+        default:
+            console.log("def");
+            currentCalculation.pop();
+            console.log(currentCalculation);
+            const newS = userInput.value.slice(0, userInput.value.length -1);
+            userInput.value = newS;
+            break
+    }
 }
 
 
@@ -151,7 +180,7 @@ memoryList.addEventListener("change", returnToUser)
 
 // percent.addEventListener("click", handleCalculation)
 
-// backspace.addEventListener("click", handleBackSpace)
+backspace.addEventListener("click", handleBackSpace)
 
 // --------------------------------LOGIC---------------------------------------
 

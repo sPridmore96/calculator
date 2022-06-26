@@ -12,7 +12,11 @@
     background-color: $colorBlack;
 }
 
-
-
-
+@media screen and (min-width: 550px) {
+    .calculator{
+    margin:  10rem auto;
+        width: 40rem;
+        height: 70rem;
+    }
+}
 

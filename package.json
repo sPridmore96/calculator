@@ -1,0 +1,22 @@
+{
+  "name": "calculator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "test:cypress": "cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sPridmore96/calculator.git"
+  },
+  "author": "Sam Pridmore",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sPridmore96/calculator/issues"
+  },
+  "homepage": "https://github.com/sPridmore96/calculator#readme",
+  "devDependencies": {
+    "cypress": "^9.7.0"
+  }
+}
