@@ -58,6 +58,15 @@
   grid-area: __memory;
   width: 100%;
 }
+.screen__select {
+  background-color: #171717;
+  padding: 0.5rem;
+  margin-top: 1rem;
+  border: none;
+  border-radius: 15%;
+  height: 2rem;
+  color: #FCFCFC;
+}
 .screen__calculations-mem {
   width: 1rem;
 }
@@ -71,6 +80,10 @@
   font-size: 3rem;
   font-weight: 600;
   color: #FCFCFC;
+}
+
+.old-memory {
+  background-color: green;
 }
 
 .buttons {

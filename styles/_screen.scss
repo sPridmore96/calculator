@@ -36,8 +36,18 @@
         width: 100%;
     }
 
+    &__select {
+        background-color: $darkGrey;
+        padding: 0.5rem;
+        margin-top: 1rem;
+        border: none;
+        border-radius: 15%;
+        height: 2rem;
+        color: $colorWhite;
+    }
     &__calculations-mem {
         width: 1rem;
+        
     }
 
     &__answer {
@@ -49,4 +59,8 @@
             @include fontFamilySizeWeightColor(3rem, 600, $colorWhite)
         }
     }
+}
+
+.old-memory {
+    background-color: green;
 }
